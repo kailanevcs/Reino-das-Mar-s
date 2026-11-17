@@ -1,9 +1,5 @@
 import customtkinter as ctk
 
-# =============================================================================
-# 1. CONFIGURAÇÕES
-# =============================================================================
-
 TITULO = "Reino das Marés"
 COR_FUNDO = "#101923"
 COR_PAINEL = "#1b2b38"
@@ -11,8 +7,6 @@ COR_DESTAQUE = "#c69b5d"
 COR_TEXTO = "#e8e1d5"
 COR_SECUNDARIA = "#8fa7b5"
 
-# Cada cena possui uma descrição e duas escolhas principais:
-# perguntar (investigar) ou ouvir (deixar a pessoa contar).
 DIALOGOS = {
     "taverna": {
         "titulo": "A Taverna do Farol Partido",
@@ -170,11 +164,6 @@ TEXTOS_ACOES = {
     ),
 }
 
-
-# =============================================================================
-# 2. APLICAÇÃO E ESTADO DO JOGO
-# =============================================================================
-
 class ReinoDasMaresApp(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -262,10 +251,7 @@ class ReinoDasMaresApp(ctk.CTk):
     def iniciar_jogo(self):
         self.tela_inicial.destroy()
         self.mostrar_abertura()    
-    # -------------------------------------------------------------------------
-    # INTERFACE
-    # -------------------------------------------------------------------------
-    
+
     def _montar_interface(self):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
@@ -361,10 +347,6 @@ class ReinoDasMaresApp(ctk.CTk):
         )
         self.btn_recomecar.pack(side="bottom", padx=15, pady=18, fill="x")
 
-    # -------------------------------------------------------------------------
-    # FUNÇÕES AUXILIARES
-    # -------------------------------------------------------------------------
-
     def escrever_historia(self, texto):
         self.texto_historia.configure(state="normal")
         self.texto_historia.delete("1.0", "end")
@@ -417,10 +399,6 @@ class ReinoDasMaresApp(ctk.CTk):
         if pista not in self.jogador["pistas"]:
             self.jogador["pistas"].append(pista)
         self.atualizar_diario()
-
-    # -------------------------------------------------------------------------
-    # PRÓLOGO: PERGUNTAR OU OUVIR
-    # -------------------------------------------------------------------------
 
     def mostrar_abertura(self):
         self.jogador["local"] = "Taverna de Skanör"
@@ -490,10 +468,6 @@ class ReinoDasMaresApp(ctk.CTk):
             self.jogador["ouviu"] += 1
         self.mostrar_resposta_dialogo(escolha)
 
-    # -------------------------------------------------------------------------
-    # EXPLORAÇÃO
-    # -------------------------------------------------------------------------
-
     def iniciar_exploracao(self):
         self.jogador["historia_iniciada"] = True
         self.jogador["local"] = "Taverna de Skanör"
@@ -556,7 +530,6 @@ class ReinoDasMaresApp(ctk.CTk):
             self.mostrar_final("dialogo")
             return
 
-        # Ações narrativas sem mudança imediata de local.
         resultado = TEXTOS_ACOES.get(acao, "Você observa o lugar com atenção.")
         if acao == "Examinar as marcas na areia":
             self.adicionar_pista("Uma escama azulada encontrada na costa.")
@@ -601,10 +574,6 @@ class ReinoDasMaresApp(ctk.CTk):
         self.escrever_historia(texto)
         self.limpar_escolhas()
         self.criar_botao("Voltar à exploração", self.mostrar_local, 0)
-
-    # -------------------------------------------------------------------------
-    # DESFECHOS
-    # -------------------------------------------------------------------------
 
     def mostrar_final(self, tipo):
         self.jogador["final"] = tipo
@@ -653,10 +622,6 @@ class ReinoDasMaresApp(ctk.CTk):
         }
         self.mostrar_abertura()
 
-
-# =============================================================================
-# 3. INÍCIO DO PROGRAMA
-# =============================================================================
 
 if __name__ == "__main__":
     app = ReinoDasMaresApp()
