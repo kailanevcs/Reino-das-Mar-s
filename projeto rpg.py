@@ -164,6 +164,7 @@ TEXTOS_ACOES = {
     ),
 }
 
+
 class ReinoDasMaresApp(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -176,7 +177,6 @@ class ReinoDasMaresApp(ctk.CTk):
         self.minsize(850, 620)
         self.configure(fg_color=COR_FUNDO)
 
-        # Dicionário com os dados da aventura.
         self.jogador = {
             "nome": "Pescador",
             "local": "Taverna de Skanör",
@@ -354,7 +354,6 @@ class ReinoDasMaresApp(ctk.CTk):
         self.texto_historia.configure(state="disabled")
 
     def limpar_escolhas(self):
-        # Estrutura de repetição: remove todos os botões da cena anterior.
         for widget in self.frame_escolhas.winfo_children():
             widget.destroy()
 
@@ -395,7 +394,6 @@ class ReinoDasMaresApp(ctk.CTk):
         )
 
     def adicionar_pista(self, pista):
-        # Evita registrar a mesma pista mais de uma vez.
         if pista not in self.jogador["pistas"]:
             self.jogador["pistas"].append(pista)
         self.atualizar_diario()
@@ -484,7 +482,6 @@ class ReinoDasMaresApp(ctk.CTk):
         )
         self.limpar_escolhas()
 
-        # Cada local possui uma lista de ações. O loop cria os botões.
         acoes = dados["acoes"]
         for indice, acao in enumerate(acoes):
             coluna = indice % 2
@@ -549,7 +546,6 @@ class ReinoDasMaresApp(ctk.CTk):
         self.criar_botao("Consultar o diário", self.mostrar_diario, 1)
 
     def mover_para(self, destino):
-        # Condição: a travessia só se revela depois de encontrar ao menos uma pista.
         if destino == "Travessia para o Reino" and len(self.jogador["pistas"]) == 0:
             self.escrever_historia(
                 "A maré ainda não recuou. Você sente que falta compreender "
@@ -621,7 +617,6 @@ class ReinoDasMaresApp(ctk.CTk):
             "final": None,
         }
         self.mostrar_abertura()
-
 
 if __name__ == "__main__":
     app = ReinoDasMaresApp()
